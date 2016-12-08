@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
 const {storage} = require('./storage');
+const {ShoppingList, Recipes} = require('./models');
 
 // we're going to add some items to storage
 // so there's some data to look at
@@ -32,6 +33,17 @@ app.post('/items', jsonParser, (req, res) => {
   res.status(201).json(item);
 });
 
+app.delete('/shopping-list/:id', (req, res) => {
+  ShoppingList.delete(req.params.id);
+  console.log(`Deleted shopping list item \`${req.params.ID}\``);
+  res.status(204).end();
+});
+
+app.delete('/recipes/:id', (request, response) => {
+  Recipes.delete(req.params.id);
+  console.log(`Deleted shopping list item \`${req.params.ID}\``);
+  res.status(204).end();
+});
 
 app.delete('/items/:id', (req, res) => {
   storage.deleteItem(req.params.id);
